@@ -1,0 +1,15 @@
+apply plugin: 'org.springframework.boot'
+
+bootJar {
+  archiveFileName = "bootstrap.jar"
+}
+
+jar {
+  //disabling the "plain" jar that gets built by default
+  enabled = false
+}
+dependencies {
+  api project(':workflow')
+  implementation 'org.springframework.boot:spring-boot-starter-web'
+  implementation 'com.h2database:h2'
+}

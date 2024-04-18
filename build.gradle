@@ -1,0 +1,67 @@
+import org.springframework.boot.gradle.plugin.SpringBootPlugin
+
+buildscript {
+  repositories {
+    mavenLocal()
+    mavenCentral()
+    maven {
+      url "https://plugins.gradle.org/m2/"
+    }
+  }
+
+  ext {
+    springBoot = '3.2.4'
+    springDependencyManagement = '1.1.4'
+    cammundaBpmSpringBoot = '7.21.0'
+  }
+
+  dependencies {
+    classpath "io.spring.gradle:dependency-management-plugin:$springDependencyManagement"
+    classpath "org.springframework.boot:spring-boot-gradle-plugin:$springBoot"
+  }
+}
+
+allprojects {
+  group = 'org.camunda.bpm.example'
+
+  repositories {
+    mavenLocal()
+    mavenCentral()
+    maven {
+      url "https://plugins.gradle.org/m2/"
+    }
+  }
+
+  apply plugin: 'base'
+}
+
+subprojects {
+  apply plugin: 'java'
+  apply plugin: 'io.spring.dependency-management'
+  apply plugin: 'java-library'
+
+  java {
+    sourceCompatibility = JavaVersion.VERSION_21
+    targetCompatibility = JavaVersion.VERSION_21
+  }
+
+  tasks.withType(JavaCompile).configureEach {
+    options.encoding = 'UTF-8'
+  }
+
+  dependencyManagement {
+    imports {
+      mavenBom SpringBootPlugin.BOM_COORDINATES
+    }
+  }
+}
+
+
+repositories {
+  mavenLocal()
+  maven { url 'https://nexus.it.gefa.de/repository/devhub-mirror/' }
+  mavenCentral()
+  maven {
+    url "https://plugins.gradle.org/m2/"
+  }
+}

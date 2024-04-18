@@ -1,0 +1,5 @@
+dependencies {
+  implementation("org.camunda.bpm.springboot:camunda-bpm-spring-boot-starter-webapp:$cammundaBpmSpringBoot") {
+    exclude group: "com.sun.xml.bind"
+  }
+}
